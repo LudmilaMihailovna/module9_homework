@@ -1,0 +1,57 @@
+<!-- При клике на кнопку происходит следующее:
+
+Если оба числа не попадают в диапазон от 100 до 300 или введено 
+не число — выводить ниже текст «одно из чисел вне диапазона 
+от 100 до 300»;
+Если числа попадают в диапазон от 100 до 300 — сделать запрос 
+c помощью fetch по URL https://picsum.photos/200/300, 
+где первое число — ширина картинки, второе — высота.
+
+Пример. Если пользователь ввёл 150 и 200, то запрос 
+будет вида https://picsum.photos/150/200. -->
+
+
+<html lang = "ru">
+<head>
+<meta charset = "UTF-8">
+<style >
+</style> 
+<title> Задание3_модуль9 </title> 
+</head>
+
+<body>
+    <h1> Введите числа </h1>
+
+    <input id="num_1" class="text"> </p>
+    <input id="num_2" class="text"> </p>
+    
+    <p> <button class="btn j-btn">Запрос</button> </p>
+    
+    <div id="j-result"></div>
+    <img id="result"/>
+</body>
+
+<script>
+
+const btn = document.querySelector('.j-btn');
+
+btn.addEventListener('click', () => {
+  const value1 = +document.getElementById('num_1').value;
+  const value2 = +document.getElementById('num_2').value;
+
+  let res = document.getElementById('j-result');
+  res.textContent = '';
+  if (!(value1 >= 100 && value1 <= 300 && value2 >= 100 && value2 <= 300 && typeof(value1) == 'number' && typeof(value2) == 'number')) {
+    res.textContent = 'одно из чисел вне диапазона от 100 до 300';
+    return;
+  }
+  
+  fetch(`https://picsum.photos/${value1}/${value2}`)
+    .then((response) => {
+      document.getElementById('result').src = response.url;
+    });
+
+});
+
+</script>
+</html>

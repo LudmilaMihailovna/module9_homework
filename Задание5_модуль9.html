@@ -1,0 +1,59 @@
+<html lang = "ru">
+<head>
+<meta charset = "UTF-8">
+<style >
+</style> 
+<title> Задание3_модуль9 </title> 
+</head>
+
+<body>
+    
+    <label>Номер страницы</label><br>
+    <input id="num_1" class="text"> </p>
+    <label>Лимит</label><br>
+    <input id="num_2" class="text"> </p>
+    
+    <p> <button class="btn j-btn">Запрос</button> </p>
+    
+    <div class = "result j-result" id="j-result"></div>
+    <img id="result"/>
+</body>
+
+<script>
+
+    const btn = document.querySelector('.j-btn');
+    
+    
+    btn.addEventListener('click', () => {
+      const value1 = +document.getElementById('num_1').value;
+      const value2 = +document.getElementById('num_2').value;
+    
+      let res = document.getElementById('j-result');
+      res.textContent = '';
+
+      if (!(value1 >= 1 && value1 <= 10 && typeof(value1) == 'number' )) {
+        res.textContent = 'Номер страницы вне диапазона от 1 до 10';
+        return;
+      }
+
+      if (!(value2 >= 1 && value2 <= 10 && typeof(value2) == 'number' )) {
+        res.textContent = 'Лимит вне диапазона от 1 до 10';
+        return;
+      }
+
+      if (!(value1 >= 1 && value1 <= 10 && value2 >= 1 && value2 <= 10 && typeof(value1) == 'number' && typeof(value2) == 'number')) {
+    res.textContent = 'Номер страницы и лимит вне диапазона от 1 до 10';
+    return;
+  } 
+    fetch(`https://picsum.photos/v2/list?page=${value1}&limit=${value2}`)
+        .then((response) => {
+          document.getElementById('result').src = response.url;
+        });
+        
+
+   
+    
+    });
+    
+    </script>
+    </html>
